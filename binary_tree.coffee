@@ -43,8 +43,10 @@ class BinaryTree
 		@walk().join(', ')
 
 addIt = ->
-	tree.add $('#newNode').val()
-	$('#binaryTreeValues').html tree.toString()
+	value = $('#newNode').val().trim()
+	unless value is ''
+		tree.add value 
+		$('#binaryTreeValues').html tree.toString()
 	
 $(document).ready ->
 	tree = new BinaryTree(100)

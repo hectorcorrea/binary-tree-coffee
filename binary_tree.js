@@ -67,8 +67,12 @@
   })();
 
   addIt = function() {
-    tree.add($('#newNode').val());
-    return $('#binaryTreeValues').html(tree.toString());
+    var value;
+    value = $('#newNode').val().trim();
+    if (value !== '') {
+      tree.add(value);
+      return $('#binaryTreeValues').html(tree.toString());
+    }
   };
 
   $(document).ready(function() {
