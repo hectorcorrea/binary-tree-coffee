@@ -1,15 +1,11 @@
-tree = null
-
-class BinaryNode
-	constructor: (@value) -> 
-		@left = null
-		@right = null
+{BinaryNode} = require?("/.binary_node") or window
 
 class BinaryTree
+
 	constructor: (rootValue) ->
 		@root = new BinaryNode rootValue
 		@count = 1
-		
+
 	add: (value) ->
 		newNode = new BinaryNode value
 		node = @root
@@ -29,34 +25,18 @@ class BinaryTree
 
 		@count++ 
 	
-	walkFromNode: (node) ->
-		@walkFromNode node.left unless node.left is null
-		@values.push node.value
-		@walkFromNode node.right unless node.right is null
+	walk: (callback) ->
+		@walkFromNode(callback, @root)
 
-	walk: ->
-		@values = []
-		@walkFromNode(@root)
-		@values
+	walkFromNode: (callback, node) ->
+		@walkFromNode(callback, node.left) unless node.left is null
+		callback(node)
+		@walkFromNode(callback, node.right) unless node.right is null
 
 	toString: ->
-		@walk().join(', ')
+		values = []
+		@walk (node) -> values.push node.value
+		values.join(', ')
 
-addIt = ->
-	value = $('#newNode').val().trim()
-	unless value is ''
-		tree.add value 
-		$('#binaryTreeValues').html tree.toString()
-	
-$(document).ready ->
-	tree = new BinaryTree(100)
-	tree.add 1000
-	tree.add 50
-	tree.add 150
-	tree.add 75
-	tree.add 200
-	tree.add 23
-	tree.add 8
-	$('#binaryTreeValues').html tree.toString()
-	$('#submit').click addIt
-	
+root = exports ? window
+root.BinaryTree = BinaryTree
