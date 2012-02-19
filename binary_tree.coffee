@@ -1,4 +1,4 @@
-{BinaryNode} = require?("/.binary_node") or window
+{BinaryNode} = require?("./binary_node") or window
 
 class BinaryTree
 

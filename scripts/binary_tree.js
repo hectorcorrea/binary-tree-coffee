@@ -1,7 +1,7 @@
 (function() {
   var BinaryNode, BinaryTree, root;
 
-  BinaryNode = ((typeof require === "function" ? require("/.binary_node") : void 0) || window).BinaryNode;
+  BinaryNode = ((typeof require === "function" ? require("./binary_node") : void 0) || window).BinaryNode;
 
   BinaryTree = (function() {
 
