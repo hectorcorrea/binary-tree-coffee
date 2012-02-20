@@ -6,6 +6,7 @@ class BinaryTree
 		@root = new BinaryNode rootValue
 		@count = 1
 
+
 	add: (value) ->
 		newNode = new BinaryNode value
 		node = @root
@@ -24,14 +25,17 @@ class BinaryTree
 					node = node.left
 
 		@count++ 
+
 	
 	walk: (callback) ->
 		@walkFromNode(callback, @root)
+
 
 	walkFromNode: (callback, node) ->
 		@walkFromNode(callback, node.left) unless node.left is null
 		callback(node)
 		@walkFromNode(callback, node.right) unless node.right is null
+
 
 	toString: ->
 		values = []

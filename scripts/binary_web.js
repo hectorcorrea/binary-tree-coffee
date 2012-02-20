@@ -1,65 +1,89 @@
 (function() {
-  var canvasHeight, canvasWidth, centerX, centerY, clearCanvas, drawCircle, drawLabel, drawLine, drawNode, drawTree, offsetY, theCanvas, theContext, tree;
+  var canvas, canvasHeight, canvasWidth, clearCanvas, context, drawCircle, drawGrid, drawLabel, drawLine, drawNode, drawTree, lastValueAdded, nodeSize, tree;
 
-  canvasWidth = 600;
+  canvasWidth = 900;
 
-  canvasHeight = 600;
+  canvasHeight = 300;
 
-  centerX = 300;
-
-  centerY = 300;
-
-  offsetY = 20;
+  nodeSize = 15;
 
   tree = null;
 
-  theContext = null;
+  context = null;
 
-  theCanvas = null;
+  canvas = null;
+
+  lastValueAdded = null;
 
   drawLine = function(x1, y1, x2, y2) {
-    theContext.beginPath();
-    theContext.moveTo(x1, y1);
-    theContext.lineTo(x2, y2);
-    theContext.fillStyle = "#000000";
-    theContext.strokeStyle = "#000000";
-    return theContext.stroke();
+    context.beginPath();
+    context.moveTo(x1, y1);
+    context.lineTo(x2, y2);
+    context.fillStyle = "#000000";
+    context.strokeStyle = "#000000";
+    return context.stroke();
   };
 
   drawCircle = function(x, y, radius, fillColor) {
     if (fillColor == null) fillColor = "#0000FF";
-    theContext.beginPath();
-    theContext.arc(x, y, radius, 0, Math.PI * 2, false);
-    theContext.fillStyle = fillColor;
-    return theContext.fill();
+    context.beginPath();
+    context.arc(x, y, radius, 0, Math.PI * 2, false);
+    context.fillStyle = fillColor;
+    return context.fill();
   };
 
   drawLabel = function(x, y, text) {
-    theContext.font = "10px sans-serif";
-    theContext.fillStyle = "#000000";
-    return theContext.fillText(text, x, y);
-  };
-
-  drawNode = function(v, x1, y1, x2, y2) {
-    drawLine(x1, y1, x2, y2);
-    drawCircle(x1, y1, 10);
-    return drawLabel(x1, y1, v);
+    context.font = "10px sans-serif";
+    context.fillStyle = "#000000";
+    return context.fillText(text, x, y);
   };
 
   clearCanvas = function() {
-    theContext.clearRect(0, 0, canvasWidth, canvasHeight);
-    drawLine(0, 0, canvasWidth, 0);
-    drawLine(canvasWidth, 0, canvasWidth, canvasHeight);
-    drawLine(canvasWidth, canvasHeight, 0, canvasHeight);
-    return drawLine(0, canvasHeight, 0, 0);
+    canvas.width = canvas.width;
+    return drawGrid();
+  };
+
+  drawGrid = function() {
+    var x, y, _results;
+    x = 0;
+    while (true) {
+      x += 100;
+      if (x > canvasWidth) break;
+      drawLine(x, 0, x, canvasHeight);
+    }
+    y = 0;
+    _results = [];
+    while (true) {
+      y += 100;
+      if (y > canvasHeight) break;
+      _results.push(drawLine(0, y, canvasWidth, y));
+    }
+    return _results;
+  };
+
+  drawNode = function(v, x1, y1, x2, y2) {
+    var color, lastNodeColor, nodeColor, rootNodeColor;
+    rootNodeColor = "#4CC552";
+    lastNodeColor = "#ADDFFF";
+    nodeColor = "#FDD017";
+    color = nodeColor;
+    if (x1 === x2 && y1 === y2) color = rootNodeColor;
+    if (v === lastValueAdded) color = lastNodeColor;
+    drawLine(x1, y1, x2, y2);
+    drawCircle(x1, y1, nodeSize, color);
+    return drawLabel(x1, y1, v);
   };
 
   drawTree = function() {
-    var drawer;
+    var drawer, offsetX, offsetY, startX, startY;
     $('#binaryTreeValues').html(tree.toString());
     clearCanvas();
-    drawer = new BinaryTreeDrawer(tree);
-    return drawer.draw(centerX, centerY, drawNode);
+    offsetX = 30;
+    offsetY = 30;
+    drawer = new BinaryTreeDrawer(tree, offsetX, offsetY);
+    startX = canvasWidth / 2;
+    startY = 30;
+    return drawer.draw(startX, startY, drawNode);
   };
 
   $(document).ready(function() {
@@ -76,17 +100,21 @@
       var value;
       value = $('#newNode').val().trim();
       if (value !== '') {
+        lastValueAdded = value;
         tree.add(value);
-        return drawTree();
+        drawTree();
+        return $('#newNode').val('');
       }
     });
-    isCanvasSupported = document.createElement("canvas").getContext !== null;
+    canvas = document.getElementById("theCanvas");
+    isCanvasSupported = canvas !== null;
     if (isCanvasSupported) {
-      theCanvas = document.getElementById("theCanvas");
-      theContext = theCanvas.getContext("2d");
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      context = canvas.getContext("2d");
       return drawTree();
     } else {
-      return alert("Canvas is not supported in your browser, loser!");
+      return alert("Canvas is not supported in your browser. You must be using IE, loser!");
     }
   });
 
