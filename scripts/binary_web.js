@@ -99,11 +99,11 @@
     $('#submit').click(function() {
       var value;
       value = $('#newNode').val().trim();
+      $('#newNode').val('');
       if (value !== '') {
         lastValueAdded = value;
         tree.add(value);
-        drawTree();
-        return $('#newNode').val('');
+        return drawTree();
       }
     });
     canvas = document.getElementById("theCanvas");
