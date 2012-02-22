@@ -94,11 +94,11 @@ $(document).ready ->
 	# Wire up the form to add more elements to the tree
 	$('#submit').click ->
 		value = $('#newNode').val().trim()
+		$('#newNode').val('')
 		unless value is ''
 			lastValueAdded = value
 			tree.add value 
 			drawTree()
-			$('#newNode').val('')
 
 
 	canvas = document.getElementById("theCanvas") 
