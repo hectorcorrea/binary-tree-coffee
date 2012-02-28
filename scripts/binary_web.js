@@ -86,7 +86,7 @@
     return drawer.draw(startX, startY, drawNode);
   };
 
-  $(document).ready(function() {
+  $(function() {
     var isCanvasSupported;
     tree = new BinaryTree(100);
     tree.add(1000);
@@ -96,14 +96,15 @@
     tree.add(200);
     tree.add(24);
     tree.add(8);
-    $('#submit').click(function() {
+    $('#submit').click(function(e) {
       var value;
+      e.preventDefault();
       value = $('#newNode').val().trim();
       $('#newNode').val('');
       if (value !== '') {
         lastValueAdded = value;
         tree.add(value);
-        return drawTree();
+        drawTree();
       }
     });
     canvas = document.getElementById("theCanvas");
@@ -112,9 +113,9 @@
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
       context = canvas.getContext("2d");
-      return drawTree();
+      drawTree();
     } else {
-      return alert("Canvas is not supported in your browser. You must be using IE, loser!");
+      alert("Canvas is not supported in your browser. You must be using IE, loser!");
     }
   });
 

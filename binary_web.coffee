@@ -80,8 +80,8 @@ drawTree = ->
 	drawer.draw startX, startY, drawNode
 
 
-$(document).ready ->
-	# initialize the binary tree with some data
+$ ->
+	# initialize the binary tree with some data..
 	tree = new BinaryTree 100
 	tree.add 1000
 	tree.add 50
@@ -92,14 +92,15 @@ $(document).ready ->
 	tree.add 8
 
 	# Wire up the form to add more elements to the tree
-	$('#submit').click ->
+	$('#submit').click (e) ->
+		e.preventDefault()
 		value = $('#newNode').val().trim()
 		$('#newNode').val('')
 		unless value is ''
 			lastValueAdded = value
 			tree.add value 
 			drawTree()
-
+			return
 
 	canvas = document.getElementById("theCanvas") 
 	isCanvasSupported = canvas isnt null
@@ -111,8 +112,4 @@ $(document).ready ->
 	else
 		alert "Canvas is not supported in your browser. You must be using IE, loser!"
 
-
-
-
-
-
+	return
