@@ -13,11 +13,11 @@
 
   tree.add(200);
 
-  tree.add(1);
+  tree.add(133);
 
   tree.add(250);
 
-  console.log(tree.toString());
+  console.log("Values = " + (tree.toString()));
 
   drawer = new BinaryTreeDrawer(tree);
 
