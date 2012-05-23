@@ -1,12 +1,29 @@
 A binary tree in CoffeeScript
-
+-----------------------------
 This project includes a class to store information using a binary tree structure (binary_tree.coffee) and a class to draw a binary tree (binary_tree_drawer.coffee)
 
 * File binary_console.coffee shows an example of how to use the binary tree and the binary tree drawer from a node.js console application
 
-* File binary_web.coffee shows an example on how to use the binary_tree and the binary_tree_drawer to actually draw a binary tree in a web page using HTML 5 canvas element. 
+* File binary_web.coffee and index.html show an example on how to use the binary_tree and the binary_tree_drawer to actually draw a binary tree in a web page using HTML 5 canvas element. 
 
-See a running version at http://hectorcorrea.com/binary-tree-coffee/index.html
+
+Running index.html sample
+-------------------------
+You can run index.html on your local box and see the code in action without having CoffeeScript or Node.js installed on your box. This is because the index.html page references that JavaScript files from the scripts folder.
+
+However, if you want to play with the CoffeeScript code (and why wouldn't you!) you need to have Node.js and CoffeeScript installed on your machine. Once you've done that you can start by running
+
+		coffee binary_console.coffee 
+
+to see what the coordinates would be for a sample tree.
+
+
+Demo page
+---------
+You can see a running version of this code at
+
+    http://hectorcorrea.com/binary-tree-coffee/index.html
+
 
 Thoughts, comments, feedback? Contact me at hector@hectorcorrea.com
 

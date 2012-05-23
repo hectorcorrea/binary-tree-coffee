@@ -12,7 +12,7 @@ tree.add 250
 console.log "Values = #{tree.toString()}"
 
 # "Draw" the tree (i.e. output each nodes' coordinates to the console)
-# console.log "Coordinates"
+console.log "Coordinates"
 drawer = new BinaryTreeDrawer(tree)
 drawer.draw 100, 100, (v, x1, y1, x2, y2) -> 
-	console.log "#{v} (#{x1}, #{y1}) / (#{x2}, #{y2})" 
+  console.log "#{v} (#{x1}, #{y1}) / (#{x2}, #{y2})" 
